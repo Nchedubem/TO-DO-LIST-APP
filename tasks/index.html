@@ -12,23 +12,25 @@
       <nav>
          <h1>TO - DO - LIST</h1>
             <ul>
-                <li><a href="#add-task">Add Task</a></li>
+                <li><a href="#add-task" id="add-task">Add Task</a></li>
                 <li><a href="#view-task" id="view-task">View Tasks</a></li>
+                <li><a href="#contact" id="contact">Contact</a></li>
             </ul>
       <nav>  
     </header>
-        <div class = "task-container"> 
-            <input type="text"id="taskInput" placeholder="Enter a Task...">
-            <input type="text" id="taskTime" placeholder="Enter Task Time">
-            <button id="add-task">Add Task</button>
-           
-            <ul id="taskList"></ul>
+    <div id = "taskContainer"> 
+        <input type="text"id="taskInput" placeholder="Enter a Task...">
+        <input type="text" id="taskTime" placeholder="Enter Task Time">
+        <button id="add-task">Add Task</button>
+    </div>
+        
+        <ul id="taskList"></ul>
 
-            <ul id="task"></ul>
+        <ul id="task"></ul>
+    <div class="popup">
+        <p>Hold On, You have an waiting Task</p>
         </div>
-        <div class="popup">
-            <p>Popup content</p>
-          </div>
+        <div id="clear-completed-tasks"></div>
 
 
     <script src="task_one.js"></script>

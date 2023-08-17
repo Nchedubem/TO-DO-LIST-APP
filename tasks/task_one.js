@@ -1,8 +1,9 @@
 const taskTime = document.getElementById('taskTime');
-const taskContainer = document.getElementById('task-container');
+const taskContainer = document.querySelector('#taskContainer');
 const viewTask = document.getElementById('view-task');
-const checkbox = document.getElementById('completed-checkbox');
+const addNav = document.getElementById('add-task');
 const popup = document.getElementById('popup');
+let checkbox = document.createElement("input");
 
 const tasks = [];
 
@@ -11,11 +12,11 @@ function addTask(taskText, taskTimeValue) {
     const newTask = { text: taskText, time: taskTimeValue, completed: false, index: tasks.length };
     tasks.push(newTask);
     updateTaskList();
+    saveTasksToLocalStorage()
   }
 }
 
 let taskList = document.getElementById('taskList');
-taskList.style.visibility = 'hidden';
 
 function updateTaskList() {
   taskList.innerHTML = "";
@@ -26,10 +27,10 @@ function updateTaskList() {
     let deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
     deleteButton.addEventListener("click", function() {
+      
       deleteTask(index);
     });
 
-    let checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = task.completed;
     checkbox.addEventListener("change", function() {
@@ -54,20 +55,20 @@ addTaskBtn.addEventListener("click", () => {
 
 // Function to show the popup
 function showPopup(taskText, taskTimeValue) {
-  popup.style.display = 'block';
+  // popup.style.display = 'block';
   const popupText = document.createElement('p');
   popupText.textContent = `It's time for your task: ${taskText}`;
   popup.appendChild(popupText);
 
-// Set a timer to hide the popup after an hour
-const currentTime = new Date().getTime();
-const taskTimeMs = new Date(taskTimeValue).getTime();
-const oneHourMs = 60 * 60 * 1000;
+  // Set a timer to hide the popup after an hour
+  const currentTime = new Date().getTime();
+  const taskTimeMs = new Date(taskTimeValue).getTime();
+  const oneHourMs = 60 * 60 * 1000;
 
-const hidePopupTimeout = setTimeout(() => {
-  popup.style.display = 'none';
-  clearTimeout(hidePopupTimeout);
-}, taskTimeMs + oneHourMs - currentTime);
+  const hidePopupTimeout = setTimeout(() => {
+    popup.style.display = 'none';
+    clearTimeout(hidePopupTimeout);
+  }, taskTimeMs + oneHourMs - currentTime);
 }
 
 // Event listener to show the popup when the task time matches the user's local time
@@ -80,10 +81,10 @@ addTaskBtn.addEventListener("click", () => {
   taskTime.value = "";
 });
 
-
 function deleteTask(index) {
   if (index >= 0 && index < tasks.length) {
     tasks.splice(index, 1);
+    saveTasksToLocalStorage()
     updateTaskList();
     for (let i = index; i < tasks.length; i++) {
       tasks[i].index--;
@@ -92,26 +93,28 @@ function deleteTask(index) {
 }
 
 const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
-tasks.push(...storedTasks);
+tasks.push(...storedTasks); 
 updateTaskList();
 
 function saveTasksToLocalStorage() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-const tasksProxy = new Proxy(tasks, {
-  set: function(target, property, value, receiver) {
-    const result = Reflect.set(target, property, value, receiver);
-    if (property !== "length" && property !== "completed") {
-      saveTasksToLocalStorage();
-    }
-    return result;
-  },
+console.log(taskContainer);
+viewTask.addEventListener('click', () => {
+  taskList.style.display = 'block';
+  taskContainer.style.display = 'none';
+});
+addNav.addEventListener('click', () => {
+  taskList.style.display = 'none';
+  taskContainer.style.display = 'block';
 });
 
-viewTask.addEventListener('click', () => {
-  taskList.style.visibility = 'visible';
-});
+window.addEventListener('load', () =>{
+  taskList.style.display = 'none';
+  taskContainer.style.display = 'block';
+
+})
 
 checkbox.addEventListener("change", function() {
   const taskIndex = tasks.findIndex((task) => task.id === this.id);
