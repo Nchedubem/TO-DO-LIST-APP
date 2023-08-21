@@ -1,38 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="./style.css">
-    <title>TO-DO-LIST APP</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <title> TO-DO-LIST APP  </title>
 </head>
 <body>
-   <header>
-      <nav>
-         <h1>TO - DO - LIST</h1>
-            <ul>
-                <li><a href="#add-task" id="add-task">Add Task</a></li>
-                <li><a href="#view-task" id="view-task">View Tasks</a></li>
-                <li><a href="#contact" id="contact">Contact</a></li>
-            </ul>
-      <nav>  
-    </header>
-    <div id = "taskContainer"> 
-        <input type="text"id="taskInput" placeholder="Enter a Task...">
-        <input type="text" id="taskTime" placeholder="Enter Task Time">
-        <button id="add-task">Add Task</button>
-    </div>
-        
-        <ul id="taskList"></ul>
-
-        <ul id="task"></ul>
-    <div class="popup">
-        <p>Hold On, You have an waiting Task</p>
-        </div>
-        <div id="clear-completed-tasks"></div>
-
-
-    <script src="task_one.js"></script>
- </body>
+  <nav>
+    <!-- <div class="nav-logo">
+       <img src="/image.png" alt="logo">
+   </div> -->
+    <ul class="nav-links">
+      <li id="add-task-link"><a href="#">Add Task</a></li>
+      <li id="view-task-link"><a href="#">View Tasks</a></li>
+      <li id="contact-link"><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+  <div id="content"></div>
+  <div class="popupTask"></div>
+  <script src="./task_one.js"></script>
+</body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
